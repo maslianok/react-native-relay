@@ -15,38 +15,38 @@ import {
 Relay.injectNetworkLayer(new DefaultNetworkLayer('http://localhost:4000/graphql'));
 
 class HomeRoute extends Route{
-    static routeName = 'Home';
-    static queries = {
-        store: (Component) => Relay.QL`
-            query MainQuery{
-                store { ${Component.getFragment('store')} }
-            }
-        `
-    }
+  static routeName = 'Home';
+  static queries = {
+    store: (Component) => Relay.QL`
+      query MainQuery{
+        store { ${Component.getFragment('store')} }
+      }
+    `
+  }
 }
 
 class UserInfo extends React.Component {
-    static propTypes = {
-        limit: PropTypes.number.isRequired,
-        store: PropTypes.object.isRequired,
-    };
-    static defaultProps = {
-        limit: 10
-    };
+  static propTypes = {
+    limit: PropTypes.number.isRequired,
+    store: PropTypes.object.isRequired,
+  };
+  static defaultProps = {
+    limit: 10
+  };
 
-    render() {
-        let {store, limit} = this.props;
-        return <Text>{store.links.slice(0, limit).map(l => <Text key={l._id}>{l.title}</Text>)}</Text>;
-    }
+  render() {
+    let {store, limit} = this.props;
+    return <Text>{store.links.slice(0, limit).map(l => <Text key={l._id}>{l.title}</Text>)}</Text>;
+  }
 }
 
 UserInfo = Relay.createContainer(UserInfo, {
-    fragments: {
-        store: () => Relay.QL`
-        fragment on Store{
-            links{_id, title, url}
-        }`
-    }
+  fragments: {
+    store: () => Relay.QL`
+    fragment on Store{
+      links{_id, title, url}
+    }`
+  }
 });
 
 const styles = StyleSheet.create({

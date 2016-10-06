@@ -1,0 +1,13 @@
+type Link {
+  _id: String
+  title: String
+  url: String
+}
+
+type Query {
+  store: Store
+}
+
+type Store {
+  links: [Link]
+}
